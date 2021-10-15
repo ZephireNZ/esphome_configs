@@ -1,0 +1,19 @@
+packages:
+  secrets: !include secrets.yaml
+
+esphome:
+  build_path: ./build/${device_name}
+
+wifi:
+  ssid: ${wifi_ssid}
+  password: ${wifi_password}
+
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ${api_password}
+
+ota:
+  password: ${ota_password}
+

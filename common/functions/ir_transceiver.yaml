@@ -1,0 +1,46 @@
+api:
+  services:
+    - service: send_code
+      variables:
+        transmit_code: "int[]"
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 38kHz
+            code: !lambda 'return transmit_code;'
+    - service: send_nec_code
+      variables:
+        address: int
+        command: int
+      then:
+        - remote_transmitter.transmit_nec:
+            #carrier_frequency: 38kHz
+            address: !lambda 'return address;'
+            command: !lambda 'return command;'
+    - service: send_lg_code
+      variables:
+        data: int
+        nbits: int
+      then:
+        - remote_transmitter.transmit_lg:
+            #carrier_frequency: 38kHz
+            data: !lambda 'return data;'
+            nbits: !lambda 'return nbits;'
+
+remote_receiver:
+  pin: 
+    number: GPIO15
+    inverted: true
+  dump: all
+
+remote_transmitter:
+  pin: GPIO13
+  carrier_duty_percent: 50%
+
+# binary_sensor:
+#   platform: remote_receiver
+#   name: "Vacuum Auto Pressed"
+#   raw:
+#     code: [3031, -2939, 537, -454, 536, -1449, 532, -1449, 532, -458, 537, -1448, 533, -458, 532, -458, 537, -454, 536, -458, 532, -459, 532, -458, 505, -485, 537, -1449, 532, -1448, 506, -485, 537, -458, 500, -490, 532, -459, 532, -458, 537, -453, 537, -1449, 532, -1448, 537, -454, 536, -459, 532, -458, 532, -458, 506, -485, 537, -453, 505, -490, 532, -459, 505, -485, 537, -1444, 537, -1448, 505, -1476, 505, -1481, 505, -1475, 506, -1480, 532, -1449, 536, -1445, 536, -1449, 505, -1476, 505,-490, 532, -458, 506, -485, 505, -485, 505, -486, 505, -490, 500, -490, 505]
+#   on_press:
+#     then:
+#       logger.log: "Pressed!"

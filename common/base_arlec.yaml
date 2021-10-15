@@ -1,0 +1,44 @@
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: esp01_1m
+  on_boot:
+    then:
+      - output.turn_on: ${device_name}_button_led
+
+packages:
+  base: !include base.yaml
+
+binary_sensor:
+  - platform: gpio
+    id: ${device_name}_button
+    pin:
+      number: GPIO14
+      inverted: True
+      mode: INPUT_PULLUP
+    filters:
+      delayed_on_off: 100ms # Debouncing
+    on_press:
+      then:
+        - switch.toggle: ${device_name}_relay
+  
+switch:
+  - platform: gpio
+    pin: GPIO12
+    name: "${friendly_name}"
+    id: ${device_name}_relay
+    restore_mode: RESTORE_DEFAULT_ON
+    icon: mdi:power-socket-au
+    on_turn_on:
+      then:
+        - output.turn_on: ${device_name}_button_led
+    on_turn_off:
+      then:
+        - output.turn_off: ${device_name}_button_led
+
+output:
+  - platform: gpio
+    id: ${device_name}_button_led
+    pin:
+      number: GPIO4
+      inverted: yes

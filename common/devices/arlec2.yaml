@@ -1,0 +1,6 @@
+substitutions:
+  device_name: arlec2
+  friendly_name: "Arlec 2"
+
+packages:
+  base_esp: !include ../base_arlec.yaml

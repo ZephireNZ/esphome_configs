@@ -1,0 +1,8 @@
+esphome:
+  name: ${device_name}
+  platform: ESP32
+  board: esp32doit-devkit-v1
+
+
+packages:
+  base: !include base.yaml

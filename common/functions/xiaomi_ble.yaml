@@ -1,0 +1,21 @@
+esp32_ble_tracker:
+
+sensor:
+  - platform: xiaomi_lywsdcgq
+    mac_address: '58:2D:34:39:A1:A2'
+    temperature:
+      name: "Indoor Temperature"
+    humidity:
+      name: "Indoor Humidity"
+    battery_level:
+      name: "MiTemp BT Battery"
+  - platform: xiaomi_hhccjcy01
+    mac_address: "C4:7C:8D:6D:81:C3"
+    temperature:
+      name: "Plant Temperature"
+    moisture:
+      name: "Plant Moisture"
+    illuminance:
+      name: "Plant Illuminance"
+    conductivity:
+      name: "Plant Soil Conductivity"
