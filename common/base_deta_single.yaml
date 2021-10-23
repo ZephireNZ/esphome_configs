@@ -1,0 +1,41 @@
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: esp01_1m
+  esp8266_restore_from_flash: true
+
+packages:
+  base: !include base.yaml
+
+binary_sensor:
+  - platform: gpio
+    id: ${device_name}_button
+    pin:
+      number: GPIO16
+      inverted: True
+      # mode: INPUT_PULLUP
+    filters:
+      delayed_on_off: 100ms # Debouncing
+    on_press:
+      then:
+        - light.toggle: ${device_name}_light
+        - homeassistant.event: 
+            event: esphome.${device_name}_button_pressed
+
+light:
+  - platform: binary
+    name: "${friendly_name}"
+    id: ${device_name}_light
+    output: ${device_name}_relay
+    icon: mdi:light-recessed
+    restore_mode: RESTORE_DEFAULT_ON
+
+output:
+  - platform: gpio
+    pin: GPIO13
+    id: ${device_name}_relay
+
+status_led:
+  pin:
+    number: GPIO4
+    inverted: True

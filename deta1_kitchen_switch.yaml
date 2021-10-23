@@ -1,0 +1,5 @@
+substitutions:
+  friendly_name: "Kitchen Lights"
+
+packages:
+  device: !include common/devices/deta1.yaml

@@ -1,0 +1,6 @@
+substitutions:
+  device_name: deta1
+  friendly_name: "Deta 1"
+
+packages:
+  base_esp: !include ../base_deta_single.yaml
