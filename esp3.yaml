@@ -1,0 +1,2 @@
+packages:
+  device: !include common/devices/esp3.yaml
